@@ -10,6 +10,11 @@ use Illuminate\Support\Str;
 
 class UserEntityFactory extends Factory
 {
+    /**
+     * Default timezones provided
+     *
+     * @var string[]
+     */
     private $defaultTimeZones = ["CET", "CST", "GMT+1"];
 
     /**

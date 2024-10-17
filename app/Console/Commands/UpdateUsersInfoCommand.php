@@ -21,6 +21,11 @@ class UpdateUsersInfoCommand extends Command
      */
     protected $description = 'Update users info to new random information';
 
+    /**
+     * Default timezones provided
+     *
+     * @var string[]
+     */
     private $defaultTimeZones = ["CET", "CST", "GMT+1"];
 
 
@@ -34,7 +39,6 @@ class UpdateUsersInfoCommand extends Command
     {
         UserEntity::chunk(300, function ($users) {
             foreach ($users as $user) {
-                echo $user->firstname;
                 $user->update([
                     'firstname' => fake()->firstName(),
                     'lastname' => fake()->lastName(),
