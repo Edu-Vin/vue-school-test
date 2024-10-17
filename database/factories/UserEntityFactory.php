@@ -2,14 +2,23 @@
 
 namespace Database\Factories;
 
+use App\Entities\Users\UserEntity;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
-class UserFactory extends Factory
+
+class UserEntityFactory extends Factory
 {
+    private $defaultTimeZones = ["CET", "CST", "GMT+1"];
+
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = UserEntity::class;
+
     /**
      * Define the model's default state.
      *
@@ -18,10 +27,12 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
+            'firstname' => fake()->firstName(),
+            'lastname' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
+            'time_zone' => fake()->randomElement($this->defaultTimeZones),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => Hash::make(fake()->password), // password
             'remember_token' => Str::random(10),
         ];
     }
