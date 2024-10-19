@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Contracts\Users\UserInterface;
 use App\Entities\Users\UserEntity;
 use Illuminate\Console\Command;
 
@@ -21,14 +22,18 @@ class UpdateUsersInfoCommand extends Command
      */
     protected $description = 'Update users info to new random information';
 
+    protected UserInterface $userInterface;
+
     /**
-     * Default timezones provided
+     * Create a new command instance.
      *
-     * @var string[]
+     * @return void
      */
-    private $defaultTimeZones = ["CET", "CST", "GMT+1"];
-
-
+    public function __construct(UserInterface $userInterface)
+    {
+        parent::__construct();
+        $this->userInterface = $userInterface;
+    }
 
     /**
      * Execute the console command.
@@ -37,16 +42,7 @@ class UpdateUsersInfoCommand extends Command
      */
     public function handle()
     {
-        UserEntity::chunk(300, function ($users) {
-            foreach ($users as $user) {
-                $user->update([
-                    'firstname' => fake()->firstName(),
-                    'lastname' => fake()->lastName(),
-                    'time_zone' => fake()->randomElement($this->defaultTimeZones)
-                ]);
-            }
-        });
-
+        $this->userInterface->updateUsersWithRandomInfo();
         return Command::SUCCESS;
     }
 }

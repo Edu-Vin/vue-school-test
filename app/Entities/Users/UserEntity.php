@@ -3,6 +3,7 @@
 namespace App\Entities\Users;
 
 use Database\Factories\UserEntityFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -46,13 +47,7 @@ class UserEntity extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    /**
-     * Create a new factory instance for the model.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    protected static function newFactory()
+    protected static function newFactory() : Factory
     {
         return UserEntityFactory::new();
     }
