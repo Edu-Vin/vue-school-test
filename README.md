@@ -5,6 +5,7 @@ This is for a Mid-level Laravel Developer test built with Laravel. The instructi
 ## Implementation
 
 - Repository design pattern was used.
+- update-provider branch was created for the second part of the test as instructed
 
 The implementation was not completed. Documentation for the API was not provided, so there was no way to know the URL for the batch update endpoint, header structure etc. In general, everything needed to update the external provider is complete. In the absence of the documentation, I implemented getting the necessary data to be updated and added a service boilerplate for updating the provider. By doing this it makes the work faster when the documentation is provided.
 
