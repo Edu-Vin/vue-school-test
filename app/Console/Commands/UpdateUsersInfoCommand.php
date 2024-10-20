@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Contracts\Users\UserInterface;
-use App\Entities\Users\UserEntity;
 use Illuminate\Console\Command;
 
 class UpdateUsersInfoCommand extends Command
@@ -13,14 +12,14 @@ class UpdateUsersInfoCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'users:update-info';
+    protected $signature = 'users:update-info {type}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Update users info to new random information';
+    protected $description = 'Either update provider with users info or update users info with new random information locally.';
 
     protected UserInterface $userInterface;
 
@@ -42,7 +41,17 @@ class UpdateUsersInfoCommand extends Command
      */
     public function handle()
     {
-        $this->userInterface->updateUsersWithRandomInfo();
-        return Command::SUCCESS;
+        try {
+            match($this->argument('type')) {
+                'local' => $this->userInterface->updateUsersWithRandomInfo(),
+                'provider' => $this->userInterface->updateProviderWithUserInfo(),
+            };
+        } catch(\UnhandledMatchError $e) {
+            $this->error('Invalid update environment!');
+            return 0;
+        }
+
+        $this->info('Update completed successfully!');
+        return 0;
     }
 }

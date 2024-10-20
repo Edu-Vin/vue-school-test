@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('users:update-info')->hourly();
+         $schedule->command('users:update-info local')->weeklyOn(1, '8:00');
+         $schedule->command('users:update-info provider')->weeklyOn(5, '8:00');
     }
 
     /**

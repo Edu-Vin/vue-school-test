@@ -26,6 +26,7 @@ class UserEntity extends Authenticatable
         'time_zone',
         'email',
         'password',
+        'last_info_update'
     ];
 
     /**
